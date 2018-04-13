@@ -62,10 +62,15 @@ def listSites(api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY')
 def getSiteReport
 '''
 
-'''
-def purgeSiteCache
-'''
-
+def purgeSiteCache(site_id, purge_pattern=None, api_id=os.environ.get('API_ID'), api_key=os.environ.get('API_KEY')):
+    if purge_pattern:
+        payload={'api_id': api_id,'api_key': api_key, 'site_id': site_id, 'purge_pattern': purge_pattern}
+    else:
+        payload={'api_id': api_id,'api_key': api_key, 'site_id': site_id}
+    url=api_endpoint + 'prov/v1/sites/cache/purge'
+    r = requests.post(url, payload)
+    return r.text
+    
 '''
 def modCacheMode
 '''
